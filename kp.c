@@ -1,112 +1,90 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <locale.h>
-#include <ctype.h>
-#include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 #include <string.h>
+#include <conio.h>
+#include <stddef.h>
 
-struct name
-{
-	char name[40];
-	char surname[40];
-	char fatherhood[40];
-};
-typedef struct name Name;
-
-struct browser
-{
+struct database {
+	char name[80];
 	char name_of_browser[40];
 	int time_in_browser;
-};
-typedef struct browser Browser;
-
-struct Ip
-{
 	char ip[40];
 };
+typedef struct database Base;
 
-void put_name(Name z)
+int new_zapisi(Base* zapis, int chislo_zapis)
 {
-	printf("%s %s %s\n", z.name, z.surname, z.fatherhood);
+	chislo_zapis++;
+	printf("–í–≤–µ–¥–∏—Ç–µ –í–∞—à–µ –§–ò–û\n");
+	getchar();
+	fgets(zapis[chislo_zapis].name, 80, stdin);
+	printf("–í–≤–µ–¥–∏—Ç–µ –Ω–∞–∑–≤–∞–Ω–∏–µ –≤–∞—à–µ–≥–æ –±—Ä–∞—É–∑–µ—Ä–∞\n");
+	fgets(zapis[chislo_zapis].name_of_browser, 40, stdin);
+	printf("–í—Ä–µ–º—è –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏—è –±—Ä–∞—É–∑–µ—Ä–∞\n");
+	scanf("%d", &zapis[chislo_zapis].time_in_browser);
+	printf("–í–≤–µ–¥–∏—Ç–µ –í–∞—à ip\n");
+	getchar();
+	fgets(zapis[chislo_zapis].ip, 40, stdin);
+	return chislo_zapis;
 }
 
-void put_browser(Browser z)
+int pechat(Base* zapis, int chislo_zapis)
 {
-	printf("%s %i\n", z.name_of_browser, z.time_in_browser);
+	for (int chislo_new_zapisi = 1;chislo_new_zapisi <= chislo_zapis;chislo_new_zapisi++)
+		printf("–í–∞—à–µ –§–ò–û: %s –í–∞—à –±—Ä–∞—É–∑–µ—Ä: %s –í—Ä–µ–º—è –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏—è –±—Ä–∞—É–∑–µ—Ä–∞(–≤ —Å–µ–∫—É–Ω–¥–∞—Ö): %i\n –í–∞—à ip: %s\n\n", zapis[chislo_new_zapisi].name, zapis[chislo_new_zapisi].name_of_browser, zapis[chislo_new_zapisi].time_in_browser, zapis[chislo_new_zapisi].ip);
 }
 
-Name ravno(char a[], char b[], char c[])
+int poisk(Base* zapis, int chislo_zapis)
 {
-	Name A;
-	for (int j = 0; j < strlen(a); j++)
+	char poisk_browser[40], poisk_ip[40];
+	printf("–í–≤–µ–¥–∏—Ç–µ –Ω–∞–∑–≤–∞–Ω–∏–µ –±—Ä–∞—É–∑–µ—Ä–∞:\n");
+	getchar();
+	fgets(poisk_browser, 40, stdin);
+	printf("–í–≤–µ–¥–∏—Ç–µ ip:\n");
+	fgets(poisk_ip, 40, stdin);
+	for (int i = 1;i <= chislo_zapis;i++)
 	{
-		A.name[j] = a[j];
+		if (strcmp(poisk_browser, zapis[i].name_of_browser) == 0 && strcmp(poisk_ip, zapis[i].ip) == 0)
+			vivod_poisk(zapis, i);
 	}
-	for (int j = 0; j < strlen(b); j++)
-	{
-		A.surname[j] = b[j];
-	}
-	for (int j = 0; j < strlen(c); j++)
-	{
-		A.fatherhood[j] = c[j];
-	}
-	return A;
-}
-Browser imya(char a[], int b)
-{
-	Browser A;
-	for (int j = 0; j < strlen(a); j++)
-	{
-		A.name_of_browser[j] = a[j];
-	}
-	A.time_in_browser = b;
-	return A;
 }
 
+int vivod_poisk(Base* zapis, int chislo_zapis)
+{
+	printf("–í–∞—à–µ –§–ò–û: %s\n –í–∞—à –±—Ä–∞—É–∑–µ—Ä: %s\n –í—Ä–µ–º—è –∏—Å–ø–æ–ª—å–∑–æ–≤–∞–Ω–∏—è –±—Ä–∞—É–∑–µ—Ä–∞: %i\n –í–∞—à ip: %s\n\n", zapis[chislo_zapis].name, zapis[chislo_zapis].name_of_browser, zapis[chislo_zapis].time_in_browser, zapis[chislo_zapis].ip);
+}
 
-void main()
+int main()
 {
 	system("chcp 1251");
-	char name[40];
-	char surname[40];
-	char fatherhood[40];
-	char name_of_browser[40];
-	int time_in_browser, p, h = 1;
-	char ip[40];
-	while (h)
+	setlocale(0, "rus");
+	int h = 1, k;
+	int chislo_zapis = 0;
+	Base zapis[100], * ptr_zapis = &zapis[chislo_zapis];
+	printf("–í—ã–±–µ—Ä–∏—Ç–µ –ø—É–Ω–∫—Ç\n");
+	while (h != 0) 
 	{
-		printf("¬˚·ÂËÚÂ ÓÔÂ‡ˆË˛, ÍÓÚÓÛ˛ ‚˚ ıÓÚËÚÂ ‚˚ÔÓÎÌËÚ¸\n");
-		printf("1) ¬‚Ó‰ ÁÌ‡˜ÂÌËÈ\n");
-		printf("2) Õ‡ÔÂ˜‡Ú‡Ú¸ ÔÓÎˇ ÒÚÛÍÚÛ\n");
-		printf("3) «‡ÍÓÌ˜ËÚ¸\n");
-		scanf("%i", &p);
-		switch (p)
-		{
+		printf("1)–î–æ–±–∞–≤–∏—Ç—å –Ω–æ–≤—É—é —Å—Ç—Ä–æ–∫—É\n2)–í—ã–≤–æ–¥ –∑–∞–ø–∏—Å–µ–π\n3)–ü–æ–∏—Å–∫ –ø–æ –∫—Ä–∏—Ç–µ—Ä–∏—è–º\n4)—Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∞ –ø–æ –∫—Ä–∏—Ç–µ—Ä–∏—è–º\n5)–≤—ã—Ö–æ–¥\n");
+		scanf("%d", &k);
+		switch (k) {
 		case 1:
-			printf("¬‚Â‰ËÚÂ ¬‡¯Â ‘»Œ\n");
-			scanf("%s %s %s", &name, &surname, &fatherhood);
-			printf("¬‚Â‰ËÚÂ Ì‡Á‚‡ÌËÂ ‚‡¯Â„Ó ·‡ÛÁÂ‡ Ë ‚ÂÏˇ Â„Ó ËÒÔÓÎ¸ÁÓ‚‡ÌËˇ(ÒÂÍÛÌ‰)\n");
-			scanf("%s %i", &name_of_browser, &time_in_browser);
-			printf("¬‚Â‰ËÚÂ ¬‡¯ ip\n");
-			scanf("%s", &ip);
-			printf("\n");
+			chislo_zapis = new_zapisi(ptr_zapis, chislo_zapis);
 			break;
 		case 2:
-			printf(" _________________________________________________________");
-			printf("\n|¬‡¯Â ÔÓÎÌÓÂ ËÏˇ:");
-			put_name(ravno(name, surname, fatherhood));
-			printf(" _________________________________________________________\n");
-			printf("|¬‡¯ ·‡ÛÁÂ Ë ‚ÂÏˇ Ì‡ıÓÊ‰ÂÌËˇ ‚ Ì∏Ï ‚ ÒÂÍÛÌ‰‡ı: ");
-			put_browser(imya(name_of_browser, time_in_browser));
-			printf(" _________________________________________________________\n");
-			printf("|¬‡¯ IP:");
-			printf("%s\n", ip);
-			printf(" _________________________________________________________\n\n");
+			pechat(ptr_zapis, chislo_zapis);
 			break;
 		case 3:
+			poisk(ptr_zapis, chislo_zapis);
+			break;
+		case 4:
+
+		case 5:
 			h = 0;
 			break;
 		}
+
 	}
 }
